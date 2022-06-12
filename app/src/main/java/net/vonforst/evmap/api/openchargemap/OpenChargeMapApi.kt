@@ -238,7 +238,7 @@ class OpenChargeMapApiWrapper(
         }.map { it.convert(referenceData, false) }.distinct() as List<ChargepointListItem>
 
         // apply clustering
-        val useClustering = zoom < 13
+        val useClustering = zoom < 11
         if (useClustering) {
             val clusterDistance = getClusterDistance(zoom)
             Dispatchers.IO.run {

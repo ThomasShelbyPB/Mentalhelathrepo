@@ -173,7 +173,7 @@ class GoingElectricApiWrapper(
         val categories = formatMultipleChoice(categoriesVal)
 
         // do not use clustering if filters need to be applied locally.
-        val useClustering = zoom < 13
+        val useClustering = zoom < 11
         val geClusteringAvailable = minConnectors == null || minConnectors <= 1
         val useGeClustering = useClustering && geClusteringAvailable
         val clusterDistance = if (useClustering) getClusterDistance(zoom) else null

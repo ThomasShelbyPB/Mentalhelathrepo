@@ -34,7 +34,8 @@ class MarkerAnimator(val gen: ChargerIconGenerator) {
         highlight: Boolean,
         fault: Boolean,
         multi: Boolean,
-        fav: Boolean
+        fav: Boolean,
+        mini: Boolean
     ) {
         animatingMarkers[marker]?.let {
             it.cancel()
@@ -53,7 +54,8 @@ class MarkerAnimator(val gen: ChargerIconGenerator) {
                         highlight = highlight,
                         fault = fault,
                         multi = multi,
-                        fav = fav
+                        fav = fav,
+                        mini = mini
                     )
                 )
             }
@@ -73,7 +75,8 @@ class MarkerAnimator(val gen: ChargerIconGenerator) {
         highlight: Boolean,
         fault: Boolean,
         multi: Boolean,
-        fav: Boolean
+        fav: Boolean,
+        mini: Boolean
     ) {
         animatingMarkers[marker]?.let {
             it.cancel()
@@ -92,7 +95,8 @@ class MarkerAnimator(val gen: ChargerIconGenerator) {
                         highlight = highlight,
                         fault = fault,
                         multi = multi,
-                        fav = fav
+                        fav = fav,
+                        mini = mini
                     )
                 )
             }
@@ -116,7 +120,7 @@ class MarkerAnimator(val gen: ChargerIconGenerator) {
         marker.remove()
     }
 
-    fun animateMarkerBounce(marker: Marker) {
+    fun animateMarkerBounce(marker: Marker, mini: Boolean) {
         animatingMarkers[marker]?.let {
             it.cancel()
             animatingMarkers.remove(marker)
@@ -127,7 +131,7 @@ class MarkerAnimator(val gen: ChargerIconGenerator) {
             interpolator = BounceInterpolator()
             addUpdateListener { state ->
                 val t = max(1f - state.animatedValue as Float, 0f) / 2
-                marker.setAnchor(0.5f, 1.0f + t)
+                marker.setAnchor(0.5f, (if (mini) 0.5f else 1.0f) + t)
             }
             addListener(onEnd = {
                 animatingMarkers.remove(marker)
